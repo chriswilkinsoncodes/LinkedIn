@@ -40,11 +40,20 @@ class TerminalScribe():
         time.sleep(self.framerate)
 
     def right(self):
-        self.canvas.setPos(self.pos, self.trail)
-        self.pos[0] += 1
-        self.canvas.setPos(self.pos, self.mark)
-        self.canvas.print()
-        time.sleep(self.framerate)
+        pos = [self.pos[0] + 1, self.pos[1]]
+        self.draw(pos)
+
+    def left(self):
+        pos = [self.pos[0] - 1, self.pos[1]]
+        self.draw(pos)
+
+    def down(self):
+        pos = [self.pos[0], self.pos[1] + 1]
+        self.draw(pos)
+
+    def up(self):
+        pos = [self.pos[0], self.pos[1] - 1]
+        self.draw(pos)
 
 
 canvas = Canvas(20, 20)
@@ -54,3 +63,15 @@ scribe.right()
 scribe.right()
 scribe.right()
 scribe.right()
+scribe.down()
+scribe.down()
+scribe.down()
+scribe.down()
+scribe.left()
+scribe.left()
+scribe.left()
+scribe.left()
+scribe.up()
+scribe.up()
+scribe.up()
+scribe.up()
