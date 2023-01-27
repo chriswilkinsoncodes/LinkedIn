@@ -5,7 +5,7 @@ class Canvas:
     def __init__(self, width, height):
         self._x = width
         self._y = height
-        self._canvas = [['' for y in range(self._y)] for x in range(self._x)]  # error? in tutorial "Laying out the code": no space between ''
+        self._canvas = [[' ' for y in range(self._y)] for x in range(self._x)]  # error in tutorial "Laying out the code": no space between ''
 
     def setPos(self, pos, mark):
         self._canvas[pos[0]][pos[1]] = mark     #pos is a cartesian pt. e.g. [1, 2]
@@ -28,18 +28,29 @@ class TerminalScribe():
         self.trail = '.'
 
     def draw(self, pos):
-        self.canvas.setPos(self.pos, self.trail)    # uses current pos, changes to trail char
-        self.pos = pos                              # updates pos
-        self.canvas.setPos(self.pos, self.mark)     #uses updated pos, changes to mark char
+        # use current pos to change point to trail character
+        self.canvas.setPos(self.pos, self.trail)
+        # update the position coordinates
+        self.pos = pos
+        # using the updated coordinates, add the mark character
+        self.canvas.setPos(self.pos, self.mark)
         self.canvas.print()
-        time.sleep(self.framerate)                  # wasn't included in "Laying out the code" so the demo of the code did not match the code
+        # this statement was not included in "Laying out the code" so the demo video did not match the code
+        # (i.e. the video included a delay between drawing each point)
+        time.sleep(self.framerate)
 
+    def right(self):
+        self.canvas.setPos(self.pos, self.trail)
+        self.pos[0] += 1
+        self.canvas.setPos(self.pos, self.mark)
+        self.canvas.print()
+        time.sleep(self.framerate)
 
 
 canvas = Canvas(20, 20)
-# canvas.clear()
 scribe = TerminalScribe(canvas)
 
-for i in range(0, 10):
-    for j in range(0, 10):
-        scribe.draw((i, j))
+scribe.right()
+scribe.right()
+scribe.right()
+scribe.right()
